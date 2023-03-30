@@ -52,6 +52,8 @@ const MenuItems = styled.div`
 
 const Select = styled.select`
   text-decoration: none;
+  margin-right: 30px;
+  font-size: 20px;
 `;
 
 export default function Navbar() {
