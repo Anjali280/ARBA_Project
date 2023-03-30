@@ -39,8 +39,6 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const Inputdiv = styled.div``;
-
 const Input = styled.input`
   flex: 1;
   min-width: 40%;
