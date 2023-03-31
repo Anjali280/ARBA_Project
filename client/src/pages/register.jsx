@@ -63,12 +63,12 @@ const Button = styled.button`
 
 const Linktag = styled.a`
   margin: 5px 0px;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
 `;
 const Link = styled.a`
   margin: 5px 0px;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
   color: #039999;
 `;
@@ -88,10 +88,11 @@ const Login = () => {
           <Input placeholder="Email" />
           <Input placeholder="Password" type="password" />
           <Input placeholder="Confirm Password" type="password" />
+          <Input placeholder="Enter avatar URL" type="url" />
           <Button>Register</Button>
 
           <Linktag>
-            Already have an account<Link> Login</Link>
+            Already have an account ?<Link> Login</Link>
           </Linktag>
         </Form>
       </Wrapper>

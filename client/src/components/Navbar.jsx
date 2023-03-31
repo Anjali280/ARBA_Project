@@ -67,7 +67,7 @@ export default function Navbar() {
         <Right>
           <Link to="/cart">
             <MenuItems>
-              <Badge badgeContent={1} color="primary">
+              <Badge badgeContent={2} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
             </MenuItems>
