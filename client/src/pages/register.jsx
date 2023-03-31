@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -74,6 +76,42 @@ const Link = styled.a`
 `;
 
 const Login = () => {
+  const [formFields, setFormFields] = useState({
+    username: "",
+    fullname: "",
+    email: "",
+    password: "",
+    confpassword: "",
+    avatar: "",
+  });
+  const { username, fullname, email, password, confpassword, avatar } =
+    formFields;
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
+  const navigate = useNavigate();
+  const registerUser = async (event) => {
+    event.preventDefault();
+    const url = await fetch("http://localhost:4000/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        fullName: fullname,
+        userName: username,
+        email,
+        password,
+        avatar,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    const res = await url.json();
+    console.log(res);
+    alert(res.message);
+    navigate("/");
+  };
   return (
     <Container>
       <Wrapper>
@@ -83,13 +121,46 @@ const Login = () => {
         <Title>APP NAME</Title>
         <Desc>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</Desc>
         <Form>
-          <Input placeholder="Username" />
-          <Input placeholder="Fullname" />
-          <Input placeholder="Email" />
-          <Input placeholder="Password" type="password" />
-          <Input placeholder="Confirm Password" type="password" />
-          <Input placeholder="Enter avatar URL" type="url" />
-          <Button>Register</Button>
+          <Input
+            placeholder="Username"
+            name="username"
+            value={username}
+            onChange={handleChange}
+          />
+          <Input
+            placeholder="Fullname"
+            name="fullname"
+            value={fullname}
+            onChange={handleChange}
+          />
+          <Input
+            placeholder="Email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
+          <Input
+            placeholder="Confirm Password"
+            type="password"
+            name="confpassword"
+            value={confpassword}
+            onChange={handleChange}
+          />
+          <Input
+            placeholder="Enter avatar URL"
+            type="url"
+            name="avatar"
+            value={avatar}
+            onChange={handleChange}
+          />
+          <Button onClick={registerUser}>Register</Button>
 
           <Linktag>
             Already have an account ?<Link> Login</Link>
