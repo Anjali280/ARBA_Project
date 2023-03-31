@@ -8,6 +8,9 @@ const connectDB = require("./utils/connectDB");
 const config = require("./configurations/config");
 app.use(express.json());
 
+const authRouter = require("./routers/auth-router");
+app.use("/api/auth", authRouter);
+
 connectDB()
   .then(() => {
     console.log("Connected to database...");
