@@ -10,8 +10,10 @@ app.use(express.json());
 
 const authRouter = require("./routers/auth-router");
 const productRouter = require("./routers/product-router");
+const categoryRouter = require("./routers/category-router");
 app.use("/api/auth", authRouter);
 app.use("/api/products", productRouter);
+app.use("/api/categories", categoryRouter);
 
 connectDB()
   .then(() => {

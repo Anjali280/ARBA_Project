@@ -77,8 +77,9 @@ const Productform = () => {
   };
   const navigate = useNavigate();
 
-  const loginUser = async (event) => {
+  const addProducts = async (event) => {
     event.preventDefault();
+    const token = JSON.parse(localStorage.getItem("token"));
     const url = await fetch("http://localhost:4000/api/products", {
       method: "POST",
       body: JSON.stringify({
@@ -90,6 +91,7 @@ const Productform = () => {
       }),
       headers: {
         "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     });
 
@@ -100,7 +102,7 @@ const Productform = () => {
       alert(res.message);
     } else {
       alert(res.message);
-      navigate("/home");
+      navigate("/products");
     }
   };
   return (
@@ -143,7 +145,7 @@ const Productform = () => {
             value={category}
             onChange={handleChange}
           />
-          <Button onClick={loginUser}>Add new Products</Button>
+          <Button onClick={addProducts}>Add new Products</Button>
         </Form>
       </Wrapper>
     </Container>

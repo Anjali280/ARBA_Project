@@ -107,6 +107,7 @@ const Login = () => {
     if (res.type === "failure") {
       alert(res.message);
     } else {
+      localStorage.setItem("token", JSON.stringify(res.payload.token));
       alert(res.message);
       navigate("/home");
     }
