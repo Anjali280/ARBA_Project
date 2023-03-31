@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import Products from "../components/Products";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Button = styled.button`
   width: 20%;
@@ -17,13 +18,17 @@ const Button = styled.button`
 `;
 
 const Home = () => {
+  const navigate = useNavigate();
+  const navigateTo = () => {
+    navigate("/products");
+  };
   return (
     <div>
       <Navbar />
       <Slider />
       <Products />
       <div>
-        <Button>All Products</Button>
+        <Button onClick={navigateTo}>All Products</Button>
       </div>
     </div>
   );
