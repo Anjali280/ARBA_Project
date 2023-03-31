@@ -9,7 +9,9 @@ const config = require("./configurations/config");
 app.use(express.json());
 
 const authRouter = require("./routers/auth-router");
+const productRouter = require("./routers/product-router");
 app.use("/api/auth", authRouter);
+app.use("/api/products", productRouter);
 
 connectDB()
   .then(() => {

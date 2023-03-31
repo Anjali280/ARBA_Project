@@ -68,11 +68,11 @@ const Button = styled.button`
 const Product = ({ item }) => {
   return (
     <Container>
-      <Image src={item.img} />
+      <Image src={item.image} />
       <Info>
-        <Icon>Product Number</Icon>
-        <Desc>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Desc>
-        <Amount>Rs 100</Amount>
+        <Icon>{item.title}</Icon>
+        <Desc>{item.description}</Desc>
+        <Amount>Rs {item.price}</Amount>
         <Button>Add to Cart</Button>
       </Info>
     </Container>
