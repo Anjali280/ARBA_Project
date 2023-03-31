@@ -75,7 +75,7 @@ const Link = styled.a`
   color: #039999;
 `;
 
-const Login = () => {
+const Register = () => {
   const [formFields, setFormFields] = useState({
     username: "",
     fullname: "",
@@ -171,4 +171,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

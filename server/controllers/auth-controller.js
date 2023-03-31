@@ -15,7 +15,7 @@ const registerUser = async (req, res) => {
 
     if (user) {
       return res.status(400).send({
-        type: "faliure",
+        type: "failure",
         message: "User with email or username already exists",
       });
     }
@@ -50,12 +50,12 @@ const loginUser = async (req, res) => {
 
     if (!user) {
       res.status(400).send({
-        type: "faliure",
+        type: "failure",
         message: `username ${userName} does not exist`,
       });
     } else if (!bcrypt.compareSync(password, user.password)) {
       res.status(400).send({
-        type: "faliure",
+        type: "failure",
         message: "Wrong password",
       });
     } else {

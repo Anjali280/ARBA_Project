@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -61,7 +63,7 @@ const Button = styled.button`
   border-radius: 15px;
 `;
 
-const Linktag = styled.a`
+const Linktag = styled.div`
   margin: 5px 0px;
   font-size: 12px;
   cursor: pointer;
@@ -74,6 +76,41 @@ const Link = styled.a`
 `;
 
 const Login = () => {
+  const [formFields, setFormFields] = useState({
+    userName: "",
+    password: "",
+  });
+  const { userName, password } = formFields;
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
+  const navigate = useNavigate();
+
+  const loginUser = async (event) => {
+    event.preventDefault();
+    const url = await fetch("http://localhost:4000/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        userName,
+        password,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+
+    const res = await url.json();
+    console.log(res);
+
+    if (res.type === "failure") {
+      alert(res.message);
+    } else {
+      alert(res.message);
+      navigate("/home");
+    }
+  };
   return (
     <Container>
       <Wrapper>
@@ -83,9 +120,20 @@ const Login = () => {
         <Title>APP NAME</Title>
         <Desc>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</Desc>
         <Form>
-          <Input placeholder="Username" />
-          <Input placeholder="Password" type="password" />
-          <Button>Login</Button>
+          <Input
+            placeholder="Username"
+            name="userName"
+            value={userName}
+            onChange={handleChange}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
+          <Button onClick={loginUser}>Login</Button>
 
           <Linktag>
             Don't have an account?<Link> Sign up</Link>
