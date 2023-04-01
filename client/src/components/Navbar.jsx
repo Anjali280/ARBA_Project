@@ -58,6 +58,15 @@ const Select = styled.select`
 `;
 
 export default function Navbar() {
+  const handleChange = (event) => {
+    event.preventDefault();
+    const val = event.target.value;
+    if (val === "My_Store") {
+      navigate("/store");
+    } else if (val === "Logout") {
+      navigate("/");
+    }
+  };
   const navigate = useNavigate();
   return (
     <Container>
@@ -80,8 +89,8 @@ export default function Navbar() {
               </Badge>
             </MenuItems>
           </Link>
-          <Select name="profile">
-            <option value="">My Store</option>
+          <Select name="profile" onChange={handleChange}>
+            <option value="My_Store">My Store</option>
             <option value="Profile">Profile</option>
             <option value="Logout">Logout</option>
           </Select>
