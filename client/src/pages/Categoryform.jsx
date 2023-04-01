@@ -98,7 +98,7 @@ const Categoryform = () => {
       alert(res.message);
     } else {
       alert(res.message);
-      navigate("/products");
+      navigate("/store");
     }
   };
   return (

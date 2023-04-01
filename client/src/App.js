@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
 import Productform from "./pages/Productform";
 import Categoryform from "./pages/Categoryform";
+import Store from "./pages/Store";
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<ProductPage />} />
-        <Route path="productform" element={<Productform />} />
-        <Route path="categoryform" element={<Categoryform />} />
+        <Route path="/productform" element={<Productform />} />
+        <Route path="/categoryform" element={<Categoryform />} />
+        <Route path="/store" element={<Store />} />
       </Routes>
     </div>
   );
