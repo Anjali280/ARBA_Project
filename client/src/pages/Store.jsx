@@ -20,9 +20,10 @@ const Button2 = styled.button`
   font-size: 22px;
   font-weight: bolder;
   color: white;
-  background-color: #039999;
+  background-color: grey;
 `;
-const Wrapper = styled.div``;
+
+const Container = styled.div``;
 
 const Store = () => {
   const [showData, setShowData] = useState("Categories");
@@ -30,7 +31,6 @@ const Store = () => {
   const ref2 = useRef(null);
 
   const handleClick = (type) => {
-    setShowData(type);
     if (showData === "Categories") {
       ref1.current.style.backgroundColor = "#039999";
       ref2.current.style.backgroundColor = "grey";
@@ -38,12 +38,13 @@ const Store = () => {
       ref1.current.style.backgroundColor = "grey";
       ref2.current.style.backgroundColor = "#039999";
     }
+    setShowData(type);
   };
 
   return (
     <div>
       <Navbar />
-      <Wrapper>
+      <div>
         <Button1
           onClick={() => {
             handleClick("Categories");
@@ -61,8 +62,10 @@ const Store = () => {
         >
           PRODUCTS
         </Button2>
-      </Wrapper>
-      {showData === "Categories" ? <CategoryCRUD /> : <ProductCRUD />}
+      </div>
+      <Container>
+        {showData === "Categories" ? <CategoryCRUD /> : <ProductCRUD />}
+      </Container>
     </div>
   );
 };

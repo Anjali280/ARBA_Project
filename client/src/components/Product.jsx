@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import "../App.css";
 
 const Container = styled.div`
   flex: 1;

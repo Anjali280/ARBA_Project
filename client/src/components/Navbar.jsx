@@ -3,6 +3,7 @@ import { ShoppingCartOutlined } from "@mui/icons-material";
 import styled from "styled-components";
 import { Badge } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
@@ -57,11 +58,18 @@ const Select = styled.select`
 `;
 
 export default function Navbar() {
+  const navigate = useNavigate();
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Logo>LOGO.</Logo>
+          <Logo
+            onClick={() => {
+              navigate("/Home");
+            }}
+          >
+            LOGO.
+          </Logo>
         </Left>
         <Center></Center>
         <Right>

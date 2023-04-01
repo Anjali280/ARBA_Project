@@ -13,6 +13,11 @@ const Button = styled.button`
   margin-top: 20px;
 `;
 
+const Container = styled.div`
+  margin-left: 350px;
+  margin-top: 40px;
+`;
+
 const ProductCRUD = () => {
   const [getData, setGetData] = useState([]);
   const getDataFun = async () => {
@@ -35,26 +40,36 @@ const ProductCRUD = () => {
       >
         ADD
       </Button>
-      <table>
-        <thead>
-          <tr>
-            <th>NAME</th>
-            <th>DESCRIPTION</th>
-            <th>IMAGE</th>
-          </tr>
-        </thead>
-        <tbody>
-          {getData.map((element) => {
-            return (
-              <tr key={element._id}>
-                <td>{element.category.name}</td>
-                <td>{element.description}</td>
-                <td>{element.image}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Container>
+        <table style={{ border: "1px solid black" }}>
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>DESCRIPTION</th>
+              <th>IMAGE</th>
+            </tr>
+          </thead>
+          <tbody>
+            {getData.map((element) => {
+              return (
+                <tr key={element._id} style={{ border: "1px solid black" }}>
+                  <td>{element.title}</td>
+                  <td>{element.description}</td>
+                  <td>
+                    {" "}
+                    <img
+                      alt={element.title}
+                      src={element.image}
+                      height="200px"
+                      width="200px"
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </Container>
     </div>
   );
 };

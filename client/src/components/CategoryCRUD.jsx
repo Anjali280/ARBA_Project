@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import "../App.css";
 
 const Button = styled.button`
   border: none;
@@ -11,6 +12,11 @@ const Button = styled.button`
   color: white;
   background-color: #039999;
   margin-top: 20px;
+`;
+
+const Container1 = styled.div`
+  margin-left: 600px;
+  margin-top: 40px;
 `;
 
 const CategoryCRUD = () => {
@@ -36,26 +42,28 @@ const CategoryCRUD = () => {
       >
         ADD
       </Button>
-      <table>
-        <thead>
-          <tr>
-            <th>NAME</th>
-            <th>SLUG</th>
-            <th>IMAGE</th>
-          </tr>
-        </thead>
-        <tbody>
-          {getData.map((element) => {
-            return (
-              <tr key={element._id}>
-                <td>{element.name}</td>
-                <td>{element.slug}</td>
-                <td>{element.image}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Container1>
+        <table>
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>SLUG</th>
+              <th>OWNER</th>
+            </tr>
+          </thead>
+          <tbody>
+            {getData.map((element) => {
+              return (
+                <tr key={element._id}>
+                  <td>{element.name}</td>
+                  <td>{element.slug}</td>
+                  <td>{element.owner.userName}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </Container1>
     </div>
   );
 };
