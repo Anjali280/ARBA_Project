@@ -90,6 +90,7 @@ export default function Navbar() {
             </MenuItems>
           </Link>
           <Select name="profile" onChange={handleChange}>
+            <option>Logged In</option>
             <option value="My_Store">My Store</option>
             <option value="Profile">Profile</option>
             <option value="Logout">Logout</option>

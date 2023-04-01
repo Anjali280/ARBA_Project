@@ -7,6 +7,7 @@ import ProductPage from "./pages/ProductPage";
 import Productform from "./pages/Productform";
 import Categoryform from "./pages/Categoryform";
 import Store from "./pages/Store";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/productform" element={<Productform />} />
         <Route path="/categoryform" element={<Categoryform />} />
         <Route path="/store" element={<Store />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </div>
   );
