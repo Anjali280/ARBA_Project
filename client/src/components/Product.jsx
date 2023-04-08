@@ -70,6 +70,15 @@ const Button = styled.button`
 const Product = ({ item }) => {
   const dispatch = useDispatchCart();
   let data = useCart();
+  const handleClick = async () => {
+    await dispatch({
+      type: "ADD",
+      image: item.image,
+      title: item.title,
+      price: item.price,
+    });
+    console.log(data);
+  };
 
   return (
     <Container>
@@ -78,7 +87,7 @@ const Product = ({ item }) => {
         <Icon>{item.title}</Icon>
         <Desc>{item.description}</Desc>
         <Amount>Rs {item.price}</Amount>
-        <Button>Add to Cart</Button>
+        <Button onClick={handleClick}>Add to Cart</Button>
       </Info>
     </Container>
   );

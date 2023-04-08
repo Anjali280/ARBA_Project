@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Badge } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "./ContextReducer";
 
 const Container = styled.div`
   height: 60px;
@@ -58,6 +59,7 @@ const Select = styled.select`
 `;
 
 export default function Navbar() {
+  const item = useCart();
   const handleChange = (event) => {
     event.preventDefault();
     const val = event.target.value;
@@ -84,7 +86,7 @@ export default function Navbar() {
         <Right>
           <Link to="/cart">
             <MenuItems>
-              <Badge badgeContent={2} color="primary">
+              <Badge badgeContent={item.length} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
             </MenuItems>

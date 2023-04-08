@@ -8,20 +8,23 @@ import Productform from "./pages/Productform";
 import Categoryform from "./pages/Categoryform";
 import Store from "./pages/Store";
 import CartPage from "./pages/CartPage";
+import { CartProvider } from "./components/ContextReducer";
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/Home" element={<Home />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/products" element={<ProductPage />} />
-        <Route path="/productform" element={<Productform />} />
-        <Route path="/categoryform" element={<Categoryform />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/cart" element={<CartPage />} />
-      </Routes>
+      <CartProvider>
+        <Routes>
+          <Route path="/Home" element={<Home />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/products" element={<ProductPage />} />
+          <Route path="/productform" element={<Productform />} />
+          <Route path="/categoryform" element={<Categoryform />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/cart" element={<CartPage />} />
+        </Routes>
+      </CartProvider>
     </div>
   );
 }
