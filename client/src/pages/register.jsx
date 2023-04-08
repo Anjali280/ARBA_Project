@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -68,12 +68,12 @@ const Linktag = styled.a`
   font-size: 14px;
   cursor: pointer;
 `;
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 14px;
-  cursor: pointer;
-  color: #039999;
-`;
+// const Link = styled.a`
+//   margin: 5px 0px;
+//   font-size: 14px;
+//   cursor: pointer;
+//   color: #039999;
+// `;
 
 const Register = () => {
   const [formFields, setFormFields] = useState({
@@ -163,7 +163,7 @@ const Register = () => {
           <Button onClick={registerUser}>Register</Button>
 
           <Linktag>
-            Already have an account ?<Link> Login</Link>
+            Already have an account ?<Link to="/"> Login</Link>
           </Linktag>
         </Form>
       </Wrapper>

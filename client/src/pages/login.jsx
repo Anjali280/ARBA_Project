@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -68,12 +68,12 @@ const Linktag = styled.div`
   font-size: 12px;
   cursor: pointer;
 `;
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  cursor: pointer;
-  color: #039999;
-`;
+// const Link = styled.a`
+//   margin: 5px 0px;
+//   font-size: 12px;
+//   cursor: pointer;
+//   color: #039999;
+// `;
 
 const Login = () => {
   const [formFields, setFormFields] = useState({
@@ -137,7 +137,7 @@ const Login = () => {
           <Button onClick={loginUser}>Login</Button>
 
           <Linktag>
-            Don't have an account?<Link> Sign up</Link>
+            Don't have an account?<Link to="/register"> Sign up</Link>
           </Linktag>
         </Form>
       </Wrapper>

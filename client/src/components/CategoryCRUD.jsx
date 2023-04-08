@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../App.css";
 
@@ -49,6 +49,7 @@ const CategoryCRUD = () => {
               <th>NAME</th>
               <th>SLUG</th>
               <th>OWNER</th>
+              <th>ACTIONS</th>
             </tr>
           </thead>
           <tbody>
@@ -58,6 +59,11 @@ const CategoryCRUD = () => {
                   <td>{element.name}</td>
                   <td>{element.slug}</td>
                   <td>{element.owner.userName}</td>
+                  <td>
+                    <Link>EDIT</Link>
+                    <span>/</span>
+                    <Link>DELETE</Link>
+                  </td>
                 </tr>
               );
             })}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Button = styled.button`
   border: none;
@@ -41,12 +41,13 @@ const ProductCRUD = () => {
         ADD
       </Button>
       <Container>
-        <table style={{ border: "1px solid black" }}>
+        <table>
           <thead>
             <tr>
               <th>NAME</th>
               <th>DESCRIPTION</th>
               <th>IMAGE</th>
+              <th>ACTIONS</th>
             </tr>
           </thead>
           <tbody>
@@ -63,6 +64,11 @@ const ProductCRUD = () => {
                       height="200px"
                       width="200px"
                     />
+                  </td>
+                  <td>
+                    <Link>EDIT</Link>
+                    <span>/</span>
+                    <Link>DELETE</Link>
                   </td>
                 </tr>
               );

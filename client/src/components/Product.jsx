@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import "../App.css";
+import { useDispatchCart, useCart } from "./ContextReducer";
 
 const Container = styled.div`
   flex: 1;
@@ -67,6 +68,9 @@ const Button = styled.button`
 `;
 
 const Product = ({ item }) => {
+  const dispatch = useDispatchCart();
+  let data = useCart();
+
   return (
     <Container>
       <Image src={item.image} />
