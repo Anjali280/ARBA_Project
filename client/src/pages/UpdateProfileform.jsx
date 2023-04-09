@@ -62,11 +62,11 @@ const UpdateProfileform = () => {
   const handleProfile = async (event) => {
     const token = JSON.parse(localStorage.getItem("token"));
     event.preventDefault();
-    const url = await fetch("http://localhost:4000/api/", {
-      method: "POST",
+    const url = await fetch("http://localhost:4000/api/auth/editprofile", {
+      method: "PATCH",
       body: JSON.stringify({
-        newAvatar,
-        newFullname,
+        avatar: newAvatar,
+        fullName: newFullname,
       }),
       headers: {
         "Content-type": "application/json",
