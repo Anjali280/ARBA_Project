@@ -65,6 +65,8 @@ export default function Navbar() {
     const val = event.target.value;
     if (val === "My_Store") {
       navigate("/store");
+    } else if (val === "Profile") {
+      navigate("/profilePage");
     } else if (val === "Logout") {
       navigate("/");
     }

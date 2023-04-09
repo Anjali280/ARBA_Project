@@ -40,6 +40,7 @@ const registerUser = async (req, res) => {
   }
 };
 
+/*FOR LOGIN USER */
 const loginUser = async (req, res) => {
   try {
     const { userName, password } = req.body;

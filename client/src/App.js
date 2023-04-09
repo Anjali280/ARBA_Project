@@ -9,6 +9,9 @@ import Categoryform from "./pages/Categoryform";
 import Store from "./pages/Store";
 import CartPage from "./pages/CartPage";
 import { CartProvider } from "./components/ContextReducer";
+import ChangePassword from "./pages/ChangePassword";
+import ProfilePage from "./pages/ProfilePage";
+import UpdateProfileform from "./pages/UpdateProfileform";
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path="/categoryform" element={<Categoryform />} />
           <Route path="/store" element={<Store />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="profilePage" element={<ProfilePage />} />
+          <Route path="changePassword" element={<ChangePassword />} />
+          <Route path="updateProfile" element={<UpdateProfileform />} />
         </Routes>
       </CartProvider>
     </div>

@@ -13,6 +13,7 @@ const auth = async (req, res, next) => {
         jwt.verify(token, config.JWT_SECRET_KEY);
         let user = jwt.decode(token);
         // Modify the request object to contain the authenticated user
+        //When user is authenticated we give additional property to request object (id , username) to be used by next function.
         req.user = user;
         next();
       } catch (err) {
