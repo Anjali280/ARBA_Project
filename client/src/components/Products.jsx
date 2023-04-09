@@ -13,7 +13,13 @@ const Products = () => {
   const [products, setProducts] = useState([]);
 
   const fetchProduct = async () => {
-    const url = await fetch("http://localhost:4000/api/products/all");
+    const token = JSON.parse(localStorage.getItem("token"));
+    const url = await fetch("http://localhost:4000/api/products/all", {
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
     const res = await url.json();
     setProducts(res.payload);
   };

@@ -20,6 +20,7 @@ const Container = styled.div`
 
 const ProductCRUD = () => {
   const [getData, setGetData] = useState([]);
+
   const getDataFun = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
     const url = await fetch("http://localhost:4000/api/products/all", {
