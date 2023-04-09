@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Button = styled.button`
   border: none;
-  height: 40px;
-  width: 200px;
-  font-size: 22px;
+  height: 30px;
+  width: 120px;
+  font-size: 15px;
   font-weight: bolder;
   color: white;
   background-color: #039999;
@@ -21,16 +21,37 @@ const Container = styled.div`
 const ProductCRUD = () => {
   const [getData, setGetData] = useState([]);
   const getDataFun = async () => {
-    const url = await fetch("http://localhost:4000/api/products/all");
+    const token = JSON.parse(localStorage.getItem("token"));
+    const url = await fetch("http://localhost:4000/api/products/all", {
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
     const data = await url.json();
     console.log(data.payload);
     setGetData(data.payload);
+    console.log(getData);
   };
 
   useEffect(() => {
     getDataFun();
   }, []);
   const navigate = useNavigate();
+
+  const handleDelete = async (id) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const url = await fetch(`http://localhost:4000/api/products/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const response = await url.json();
+    console.log(response);
+    alert(response.message);
+  };
   return (
     <div>
       <Button
@@ -39,6 +60,14 @@ const ProductCRUD = () => {
         }}
       >
         ADD
+      </Button>
+      &nbsp;
+      <Button
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        REFRESH
       </Button>
       <Container>
         <table>
@@ -57,7 +86,6 @@ const ProductCRUD = () => {
                   <td>{element.title}</td>
                   <td>{element.description}</td>
                   <td>
-                    {" "}
                     <img
                       alt={element.title}
                       src={element.image}
@@ -68,7 +96,13 @@ const ProductCRUD = () => {
                   <td>
                     <Link>EDIT</Link>
                     <span>/</span>
-                    <Link>DELETE</Link>
+                    <button
+                      onClick={() => {
+                        handleDelete(element._id);
+                      }}
+                    >
+                      DELETE
+                    </button>
                   </td>
                 </tr>
               );

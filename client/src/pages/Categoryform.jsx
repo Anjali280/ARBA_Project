@@ -61,7 +61,7 @@ const Button = styled.button`
   border-radius: 15px;
 `;
 
-const Categoryform = () => {
+const Categoryform = ({ type }) => {
   const [formFields, setFormFields] = useState({
     name: "",
     slug: "",
@@ -130,7 +130,7 @@ const Categoryform = () => {
             onChange={handleChange}
           />
 
-          <Button onClick={addCategory}>Add new Category</Button>
+          <Button onClick={addCategory}>{type}</Button>
         </Form>
       </Wrapper>
     </Container>

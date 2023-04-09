@@ -57,12 +57,12 @@ const CategoryCRUD = () => {
     <div>
       <Button
         onClick={() => {
-          navigate("/categoryform");
+          navigate("/categoryform", { state: "Add new Category" });
         }}
       >
         ADD
       </Button>
-      &nbsp;&nbsp;
+      &nbsp;
       <Button
         onClick={() => {
           window.location.reload();
