@@ -68,6 +68,7 @@ export default function Navbar() {
     } else if (val === "Profile") {
       navigate("/profilePage");
     } else if (val === "Logout") {
+      localStorage.removeItem("token");
       navigate("/");
     }
   };

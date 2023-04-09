@@ -5,9 +5,9 @@ import "../App.css";
 
 const Button = styled.button`
   border: none;
-  height: 40px;
-  width: 200px;
-  font-size: 22px;
+  height: 30px;
+  width: 120px;
+  font-size: 15px;
   font-weight: bolder;
   color: white;
   background-color: #039999;
@@ -23,7 +23,13 @@ const CategoryCRUD = () => {
   const [getData, setGetData] = useState([]);
 
   const getDataFun = async () => {
-    const url = await fetch("http://localhost:4000/api/categories");
+    const token = JSON.parse(localStorage.getItem("token"));
+    const url = await fetch("http://localhost:4000/api/categories/all", {
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
     const data = await url.json();
     console.log(data.payload);
     setGetData(data.payload);
@@ -33,6 +39,20 @@ const CategoryCRUD = () => {
     getDataFun();
   }, []);
   const navigate = useNavigate();
+
+  const handleDelete = async (id) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const url = await fetch(`http://localhost:4000/api/categories/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const response = await url.json();
+    console.log(response);
+    alert(response.message);
+  };
   return (
     <div>
       <Button
@@ -41,6 +61,14 @@ const CategoryCRUD = () => {
         }}
       >
         ADD
+      </Button>
+      &nbsp;&nbsp;
+      <Button
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        REFRESH
       </Button>
       <Container1>
         <table>
@@ -62,7 +90,13 @@ const CategoryCRUD = () => {
                   <td>
                     <Link>EDIT</Link>
                     <span>/</span>
-                    <Link>DELETE</Link>
+                    <button
+                      onClick={() => {
+                        handleDelete(element._id);
+                      }}
+                    >
+                      DELETE
+                    </button>
                   </td>
                 </tr>
               );
