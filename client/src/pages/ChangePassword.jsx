@@ -61,14 +61,17 @@ const ChangePassword = () => {
   };
 
   const handlePassword = async (event) => {
+    if (NewPassword !== ConfirmPassword) {
+      alert("new and confirm password do not match");
+      return;
+    }
     const token = JSON.parse(localStorage.getItem("token"));
     event.preventDefault();
-    const url = await fetch("http://localhost:4000/api/", {
-      method: "POST",
+    const url = await fetch("http://localhost:4000/api/auth/changepassword", {
+      method: "PATCH",
       body: JSON.stringify({
-        OldPassword,
-        NewPassword,
-        ConfirmPassword,
+        oldPassword: OldPassword,
+        newPassword: NewPassword,
       }),
       headers: {
         "Content-type": "application/json",
