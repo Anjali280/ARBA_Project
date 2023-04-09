@@ -57,7 +57,7 @@ const CategoryCRUD = () => {
     <div>
       <Button
         onClick={() => {
-          navigate("/categoryform", { state: "Add new Category" });
+          navigate("/categoryform", { state: { type: "Add new Category" } });
         }}
       >
         ADD
@@ -88,7 +88,15 @@ const CategoryCRUD = () => {
                   <td>{element.slug}</td>
                   <td>{element.owner.userName}</td>
                   <td>
-                    <Link>EDIT</Link>
+                    <button
+                      onClick={() => {
+                        navigate("/categoryform", {
+                          state: { type: "Edit Category", id: element._id },
+                        });
+                      }}
+                    >
+                      EDIT
+                    </button>
                     <span>/</span>
                     <button
                       onClick={() => {

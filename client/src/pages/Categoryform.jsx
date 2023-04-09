@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -61,25 +61,35 @@ const Button = styled.button`
   border-radius: 15px;
 `;
 
-const Categoryform = ({ type }) => {
+const Categoryform = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [formFields, setFormFields] = useState({
     name: "",
     slug: "",
     image: "",
   });
   const { name, slug, image } = formFields;
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
-  const navigate = useNavigate();
 
-  const addCategory = async (event) => {
+  //Addition of Category
+  const handleSubmit = async (event) => {
     const token = JSON.parse(localStorage.getItem("token"));
     event.preventDefault();
-    const url = await fetch("http://localhost:4000/api/categories", {
-      method: "POST",
+    let fetchURL = "";
+    let methodType = "";
+    if (location.state.type === "Add new Category") {
+      fetchURL = "http://localhost:4000/api/categories";
+      methodType = "POST";
+    } else {
+      fetchURL = `http://localhost:4000/api/categories/${location.state.id}`;
+      methodType = "PATCH";
+    }
+    const url = await fetch(fetchURL, {
+      method: methodType,
       body: JSON.stringify({
         name,
         slug,
@@ -130,7 +140,7 @@ const Categoryform = ({ type }) => {
             onChange={handleChange}
           />
 
-          <Button onClick={addCategory}>{type}</Button>
+          <Button onClick={handleSubmit}>{location.state.type}</Button>
         </Form>
       </Wrapper>
     </Container>
