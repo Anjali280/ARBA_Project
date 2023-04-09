@@ -57,7 +57,7 @@ const ProductCRUD = () => {
     <div>
       <Button
         onClick={() => {
-          navigate("/productform");
+          navigate("/productform", { state: { type: "Add new Product" } });
         }}
       >
         ADD
@@ -95,7 +95,15 @@ const ProductCRUD = () => {
                     />
                   </td>
                   <td>
-                    <Link>EDIT</Link>
+                    <button
+                      onClick={() => {
+                        navigate("/productform", {
+                          state: { type: "Edit Product", id: element._id },
+                        });
+                      }}
+                    >
+                      EDIT
+                    </button>
                     <span>/</span>
                     <button
                       onClick={() => {

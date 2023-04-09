@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -70,18 +70,28 @@ const Productform = () => {
     category: "",
   });
   const { title, description, price, image, category } = formFields;
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
-  const navigate = useNavigate();
 
-  const addProducts = async (event) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    let fetchURL = "";
+    let methodType = "";
+    if (location.state.type === "Add new Product") {
+      fetchURL = "http://localhost:4000/api/products";
+      methodType = "POST";
+    } else {
+      fetchURL = `http://localhost:4000/api/products/${location.state.id}`;
+      methodType = "PATCH";
+    }
     const token = JSON.parse(localStorage.getItem("token"));
-    const url = await fetch("http://localhost:4000/api/products", {
-      method: "POST",
+    const url = await fetch(fetchURL, {
+      method: methodType,
       body: JSON.stringify({
         title,
         description,
@@ -145,7 +155,7 @@ const Productform = () => {
             value={category}
             onChange={handleChange}
           />
-          <Button onClick={addProducts}>Add new Products</Button>
+          <Button onClick={handleSubmit}>{location.state.type}</Button>
         </Form>
       </Wrapper>
     </Container>
