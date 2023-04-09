@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -21,19 +21,33 @@ const Button = styled.button`
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
+
+  const fetchUser = async () => {
+    //event.preventDefault();
+    const token = JSON.parse(localStorage.getItem("token"));
+    const url = await fetch("http://localhost:4000/api/auth/loggedInUser", {
+      headers: {
+        "Content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    const res = await url.json();
+    setUser(res.payload);
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
   return (
     <div>
       <Navbar />
       <Container>
-        <Image
-          src="https://www.eluniversal.com.mx/resizer/px-FslTn65k8NzLVUrb5bHS-noI=/1100x666/cloudfront-us-east-1.images.arcpublishing.com/eluniversal/ZVC7SKHTZZE3THXCC5SWRNAD4E.jpg"
-          alt="cat"
-          width="400px"
-          height="300px"
-        />
-        <Details>User Name</Details>
-        <Details>Full Name</Details>
-        <Details>cat@gmail.com</Details>
+        <Image src={user.avatar} alt="cat" width="400px" height="300px" />
+        <Details>{user.userName}</Details>
+        <Details>{user.fullName}</Details>
+        <Details>{user.email}</Details>
         <Button
           onClick={() => {
             navigate("/updateProfile");

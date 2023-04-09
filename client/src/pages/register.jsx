@@ -63,17 +63,11 @@ const Button = styled.button`
   border-radius: 15px;
 `;
 
-const Linktag = styled.a`
+const Linktag = styled.div`
   margin: 5px 0px;
   font-size: 14px;
   cursor: pointer;
 `;
-// const Link = styled.a`
-//   margin: 5px 0px;
-//   font-size: 14px;
-//   cursor: pointer;
-//   color: #039999;
-// `;
 
 const Register = () => {
   const [formFields, setFormFields] = useState({
@@ -94,6 +88,10 @@ const Register = () => {
   const navigate = useNavigate();
   const registerUser = async (event) => {
     event.preventDefault();
+    if (password !== confpassword) {
+      alert("new and confirm password do not match");
+      return;
+    }
     const url = await fetch("http://localhost:4000/api/auth/register", {
       method: "POST",
       body: JSON.stringify({

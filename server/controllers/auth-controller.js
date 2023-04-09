@@ -2,21 +2,19 @@ const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
 const User = require("../models/User");
 
-/*FOR REGISTRATION */
 const registerUser = async (req, res) => {
   try {
     const userObj = req.body;
-    const { email, userName } = userObj;
+    const { email } = userObj;
 
     let user = await User.findOne({
       email,
-      userName,
     });
 
     if (user) {
       return res.status(400).send({
-        type: "failure",
-        message: "User with email or username already exists",
+        type: "faliure",
+        message: "User with email already exists",
       });
     }
 
@@ -26,7 +24,7 @@ const registerUser = async (req, res) => {
 
     user = await User.create(userObj);
 
-    res.status(200).send({
+    res.status(201).send({
       type: "success",
       message: "Registration successful",
       payload: user,
@@ -40,7 +38,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-/*FOR LOGIN USER */
 const loginUser = async (req, res) => {
   try {
     const { userName, password } = req.body;
@@ -51,12 +48,12 @@ const loginUser = async (req, res) => {
 
     if (!user) {
       res.status(400).send({
-        type: "failure",
+        type: "faliure",
         message: `username ${userName} does not exist`,
       });
     } else if (!bcrypt.compareSync(password, user.password)) {
       res.status(400).send({
-        type: "failure",
+        type: "faliure",
         message: "Wrong password",
       });
     } else {
@@ -87,11 +84,13 @@ const loginUser = async (req, res) => {
 
 const getLoggedInUser = async (req, res) => {
   try {
-    const user = req.user;
+    const { _id } = req.user;
+    const { userName, fullName, email, avatar } = await User.findById(_id);
+
     res.send({
       type: "success",
-      message: "user logged in",
-      payload: user,
+      message: "fetch logged in user info success",
+      payload: { userName, fullName, email, avatar },
     });
   } catch (err) {
     res.status(500).send({
@@ -100,4 +99,64 @@ const getLoggedInUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getLoggedInUser };
+const editProfile = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { fullName, avatar } = req.body;
+
+    await User.findByIdAndUpdate(_id, {
+      $set: { fullName, avatar },
+    });
+
+    const updatedUser = await User.findById(_id);
+
+    res.send({
+      type: "success",
+      message: "profile updated successfully",
+      payload: updatedUser,
+    });
+  } catch (err) {
+    res.status(500).send({
+      error: "Something went wrong",
+    });
+  }
+};
+
+const updatePassword = async (req, res) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    const { _id } = req.user;
+    const user = await User.findById(_id);
+
+    if (!bcrypt.compareSync(oldPassword, user.password)) {
+      return res.status(400).send({
+        type: "faliure",
+        message: "wrong old password",
+      });
+    }
+
+    const inputPassword = newPassword;
+    const hashedPassword = bcrypt.hashSync(inputPassword);
+
+    await User.findByIdAndUpdate(_id, { $set: { password: hashedPassword } });
+
+    res.status(201).send({
+      type: "success",
+      message: "Password changed successfully",
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).send({
+      error: "Something went wrong",
+    });
+  }
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+  getLoggedInUser,
+  editProfile,
+  updatePassword,
+};
