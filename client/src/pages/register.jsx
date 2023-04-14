@@ -70,6 +70,7 @@ const Linktag = styled.div`
 `;
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formFields, setFormFields] = useState({
     username: "",
     fullname: "",
@@ -85,7 +86,7 @@ const Register = () => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
-  const navigate = useNavigate();
+
   const registerUser = async (event) => {
     event.preventDefault();
     if (password !== confpassword) {
@@ -110,6 +111,7 @@ const Register = () => {
     alert(res.message);
     navigate("/");
   };
+
   return (
     <Container>
       <Wrapper>
